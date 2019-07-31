@@ -1,7 +1,9 @@
 import turtle
+from turtle import *
 import os
 import math
 import random
+
 # set up the screen
 wn = turtle.Screen()
 wn.bgcolor("black")
@@ -38,6 +40,18 @@ scorestring = "SCORE: %s" % score
 score_pen.write(scorestring, False, align = "left", font = ("Arial", 14, "normal"))
 score_pen.hideturtle()
 
+
+#gameover 
+def gameover():
+    game_over = turtle.Turtle()
+    game_over.speed(0)
+    game_over.color("white")
+    game_over.setposition(0, 0)
+    game_over_string = "GAME OVER %s" % score
+    game_over.write(game_over_string, False, align="center", font = ("Arial", 40, "normal"))
+
+
+
 # creating our player
 player = turtle.Turtle()
 player.color("blue")
@@ -51,7 +65,8 @@ player.setheading(90)
 playerspeed = 15
 
 # chode number of enemies
-number_of_enemies = 5
+number_of_enemies = 4
+
 
 # create an empty list of enemies
 enemies = []
@@ -62,14 +77,20 @@ enemy = turtle.Turtle()
 for i in range(number_of_enemies):
     enemies.append(turtle.Turtle())
 
+x = -200
+y = 200
+enemy.penup()
 for enemy in enemies:
-    enemy.color("red")
-    enemy.shape("invader.gif")
-    enemy.penup()
-    enemy.speed(0)
-    x = random.randint(-200, 200)
-    y = random.randint(100, 250)
+    if enemy.xcor() >= 200:
+        enemy.setposition(-200, y - 40)
+        enemy.shape("invader.gif")
+        enemy.speed('fastest')
+        x += 50
     enemy.setposition(x, y)
+    enemy.shape("invader.gif")
+    enemy.speed('fastest')
+    x += 50
+    
 
 # setting our enemey speed
 enemyspeed = 2
@@ -79,12 +100,12 @@ bullet = turtle.Turtle()
 bullet.color("yellow")
 bullet.shape("triangle")
 bullet.penup()
-bullet.speed(0)
+bullet.speed('fastest')
 bullet.setheading(90)
 bullet.shapesize(0.5, 0.5)
 bullet.hideturtle()
 
-bulletspeed = 20
+bulletspeed = 50
 
 # define bullet state
 # ready
@@ -113,8 +134,9 @@ def fire_bullet():
     # declare bullet as global if it needs to be changed
     global bulletstate
     if bulletstate == "ready":
-        bulletstate = "fire"
+       # bulletstate = "fire"
         # move the bullet
+        bullet.clone()
         x = player.xcor()
         y = player.ycor() + 10
         bullet.setposition(x, y)
@@ -156,6 +178,9 @@ while True:
                 y -= 40
                 e.sety(y)
             enemyspeed *= -1
+        if enemy.ycor() > 280:
+            for e in enemies:
+                e.hideturtle
 
         # check collision between the bullet and the enemy 
         if isCollision(bullet, enemy):
@@ -163,11 +188,10 @@ while True:
             bullet.hideturtle()
             bulletstate = "ready"
             bullet.setposition(0, -400)
-            # reset the enemy
-            x = random.randint(-200, 200)
-            y = random.randint(100, 250)
-            enemy.setposition(x, y)
-            #Update score
+            # hide the enemy
+            enemy.clear()
+            enemy.ht()
+            #update the score by ten points
             score += 10
             scorestring = "SCORE: %s" % score
             score_pen.clear()
@@ -176,19 +200,17 @@ while True:
         if isCollision(player, enemy):
             player.hideturtle()
             enemy.hideturtle()
-            print("Game Over")
+            gameover()
             break
 
-    # move bulleet
-    if bulletstate == "fire":
+    # move bullet
+    if bulletstate == "ready":
         y = bullet.ycor()
         y += bulletspeed
         bullet.sety(y)
+        bullet.speed('fastest')
     
     # check if bullet touches top
     if bullet.ycor() > 275:
         bullet.hideturtle()
-        bulletstate = "ready"
 
-   
-delay = raw_input("Press enter to finish")
