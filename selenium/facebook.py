@@ -1,38 +1,30 @@
 from selenium import webdriver
-from selenium.webdriver.common.by import By
 from time import sleep
 
-user = input("Enter the email: ")
-password = input("enter the password : ")
-url = "https://www.facebook.com"
+class Facebook:
 
-driver = webdriver.Chrome('/Users/jesusmedina/Downloads/chromedriver')
-driver.get(url)
+    def __init__(self, username, password):
+        self.username = username
+        self.password = password
 
-print("opened facebook")
+    def login(self):
+        url = 'https://hosted13.renlearn.com/272178/public/rpm/login/Login.aspx?srcID=t'
+        chrome = webdriver.Chrome('/Users/jesusmedina/Downloads/chromedriver')
+        chrome.get(url)
 
-username_box = driver.find_element_by_id('email')
-username_box.send_keys(user)
-print("username entered")
+        username_text = chrome.find_element_by_id('tbUserName')
+        password_text = chrome.find_element_by_id('tbPassword')
 
-password_box = driver.find_element_by_id('pass')
-password_box.send_keys(password)
-print("password entered")
+        username_text.send_keys(self.username)
+        password_text.send_keys(self.password)
 
-login = driver.find_element_by_id("loginbutton")
-login.click()
+        login = chrome.find_element_by_id('btnLogIn')
+        login.click()
+        sleep(5)
 
-print("done")
+user = input('Enter the username: ')
+passwd = input("Enter the password: ")
 
-sleep(5)
+fb = Facebook(user, passwd)
 
-logout = driver.find_element_by_id("logoutMenu")
-logout.click()
-
-#driver.find_element_by_xpath('//*[@id="js_5e"]/div/div/ul/li[12]/a').click()
-post = driver.find_element(By.XPATH,'//*[@id="js_8f"]/div[1]/div/div[1]/div[1]/div[2]/div/div/div/div/div/div/div[2]/div/div/div/div')
-sleep(2)
-post.send_keys("Hello, World!")
-#input("Enter anything to quit")
-#driver.quit()
-#print("finished")
+fb.login()
