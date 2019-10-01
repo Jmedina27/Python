@@ -10,30 +10,30 @@ chrome = webdriver.Chrome("/Users/jesusmedina/Downloads/chromedriver")
 chrome.get("https://www.sephora.com/beauty/new-makeup?icid2=meganav_new_justarrived_makeup_link")
 
 #create two obv
-shoe_name = chrome.find_elements_by_class_name("css-ktoumz")
-shoe_price = chrome.find_elements_by_class_name("css-68u28a")
+name = chrome.find_elements_by_class_name("css-ktoumz")
+price = chrome.find_elements_by_class_name("css-68u28a")
 
-shoe_list = []
+name_list = []
 price_list = []
 
-for i in shoe_name:
-    shoe_list.append(i.text)
-for i in shoe_price:
+for i in name:
+    name_list.append(i.text)
+for i in price:
     price_list.append(i.text)
 
-mapped = [shoe_list, price_list]
+mapped = [name_list, price_list]
 
 for i in zip(*mapped):
    print(*i)
 
 wb = Workbook()
 
-sheet1 = wb.add_sheet("adidas")
-sheet1.write(0, 0, 'Shoe Name')
-sheet1.write(0, 1, 'Shoe Price')
+sheet1 = wb.add_sheet("sephora")
+sheet1.write(0, 0, 'Product Name')
+sheet1.write(0, 1, 'Product Price')
 
 x = 1
-for i in shoe_list:
+for i in name_list:
     sheet1.write(x, 0, i)
     x += 1
 
@@ -42,7 +42,7 @@ for i in price_list:
     sheet1.write(x, 1, i)
     x += 1
 
-wb.save('adidas.xls')
+wb.save('sephora.xls')
 
 input("hit enter to quit the program")
 chrome.close()

@@ -4,7 +4,10 @@ from selenium.webdriver.chrome.options import Options
 from time import sleep
 import xlwt
 from xlwt import Workbook
-from selenium.information import ren_user, ren_passwd
+#from seleniuminformation import ren_user, ren_passwd
+
+ren_user = input('Enter username: ')
+ren_passwd = input('Enter password: ')
 
 url = "https://hosted13.renlearn.com/272178/public/rpm/login/Login.aspx?srcID=t"
 
