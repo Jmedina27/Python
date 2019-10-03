@@ -77,7 +77,7 @@ def get_students(teacher_option, teacher_name):
 
     i = 0
     x = 1
-    while i != 25:
+    while i < 36:
 
         if x < 10:
             name_id = 'ctl00_cp_Content_rptPW_ctl0' + str(x) + '_tdStudent'
