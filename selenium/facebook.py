@@ -1,5 +1,6 @@
 from selenium import webdriver
 from time import sleep
+import getpass
 
 class Facebook:
 
@@ -23,7 +24,7 @@ class Facebook:
         sleep(5)
 
 user = input('Enter the username: ')
-passwd = input("Enter the password: ")
+passwd = getpass.getpass("Enter password: ")
 
 fb = Facebook(user, passwd)
 

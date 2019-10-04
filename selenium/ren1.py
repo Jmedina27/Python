@@ -4,11 +4,12 @@ from selenium.webdriver.chrome.options import Options
 from time import sleep
 import xlwt
 from xlwt import Workbook
+import getpass
 
 #from seleniuminformation import ren_user, ren_passwd
 
 ren_user = input('Enter username: ')
-ren_passwd = input('Enter password: ')
+ren_passwd = getpass.getpass("Enter password: ")
 
 url = "https://hosted13.renlearn.com/272178/public/rpm/login/Login.aspx?srcID=t"
 
@@ -124,16 +125,26 @@ sheet1.write(0, 2, 'Password')
 
 i = 0
 x = 1
-while i != 25:
 
-    if x < 10:
-        name_id = 'ctl00_cp_Content_rptPW_ctl0' + str(x) + '_tdStudent'
-        username_id = 'ctl00_cp_Content_rptPW_ctl0' + str(x) + '_tdUserName'
-        pass_id = 'ctl00_cp_Content_rptPW_ctl0' + str(x) + '_tdPW'
+def create_list(name_id, username_id, student_name):
+
+    while i != 25:
+
+        if x < 10:
+            name_id = 'ctl00_cp_Content_rptPW_ctl0' + str(x) + '_tdStudent'
+            username_id = 'ctl00_cp_Content_rptPW_ctl0' + str(x) + '_tdUserName'
+            pass_id = 'ctl00_cp_Content_rptPW_ctl0' + str(x) + '_tdPW'
+            create_list(name_id, username_id, student_name)
+
+        if x >= 10:
+                name_id = 'ctl00_cp_Content_rptPW_ctl' + str(x) + '_tdStudent'
+                username_id = 'ctl00_cp_Content_rptPW_ctl' + str(x) + '_tdUserName'
+                pass_id = 'ctl00_cp_Content_rptPW_ctl' + str(x) + '_tdPW'
+                create_list(name_id, username_id, student_name)
+
         student_name = chrome.find_elements_by_id(name_id)
         student_username = chrome.find_elements_by_id(username_id)
         student_passwd = chrome.find_elements_by_id(pass_id)
-    
         for j in student_name:
             name_list.append(j.text)
         for j in student_username:
@@ -142,23 +153,8 @@ while i != 25:
             pass_list.append(int(j.text))
 
         x += 1
-    else:
-        name_id = 'ctl00_cp_Content_rptPW_ctl' + str(x) + '_tdStudent'
-        username_id = 'ctl00_cp_Content_rptPW_ctl' + str(x) + '_tdUserName'
-        pass_id = 'ctl00_cp_Content_rptPW_ctl' + str(x) + '_tdPW'
-        student_name = chrome.find_elements_by_id(name_id)
-        student_username = chrome.find_elements_by_id(username_id)
-        student_passwd = chrome.find_elements_by_id(pass_id)
-        
-        for j in student_name:
-            name_list.append(j.text)
-        for j in student_username:
-            username_list.append(j.text)
-        for j in student_passwd:
-            pass_list.append(int(j.text))
-        x += 1
 
-    i += 1
+        i += 1
 
 x = 1
 for j in name_list:
@@ -173,6 +169,6 @@ for j in pass_list:
     sheet1.write(x, 2, j)
     x += 1
 
-wb.save('/Users/jesusmedina/Downloads/Marshall/AR/STAR2.xls')
+wb.save('/Users/jesusmedina/Desktop/STAR2.xls')
 
 print('Finished')

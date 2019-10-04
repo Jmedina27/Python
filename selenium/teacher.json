@@ -1,7 +1,30 @@
-{
-    "teachers": [
-        {
-            "name": "Amori"
-        }
-    ]
-}
+[
+    {
+        "name": "Amori",
+        "username": "amori12",
+        "password": "password1"
+    },
+    {
+        "name": "Cortez",
+        "username": "amori12",
+        "password": "password2"
+    },
+    {
+        "name": "Alex",
+        "username": "amori12",
+        "password": "password3"
+    },
+    {
+        "name": "Briuyneel",
+        "username": "amori12",
+        "password": "password4"
+    },
+    {
+        "name": "Alec",
+        "username": "amori12",
+        "password": "password5"
+    }
+
+
+
+]

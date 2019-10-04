@@ -7,10 +7,8 @@ from xlwt import Workbook
 from openpyxl import load_workbook
 import getpass
 
-
-
 ren_user = input('Enter username: ')
-ren_passwd = input('Enter password: ')
+ren_passwd = getpass.getpass("Enter password: ")
 
 name = getpass.getuser()
 
@@ -42,12 +40,11 @@ print('Logged in as ' + account_name)
 # switching to student users page
 usrs = chrome.find_element_by_id('app-users')
 usrs.click()
-sleep(1)
+#sleep(1)
 
 view = chrome.find_element_by_id('m_lnkViewStudent')
 view.click()
 sleep(1)
-print('Going to Student Users')
 
 # creating lists for student name, student username, and password
 name_list = []

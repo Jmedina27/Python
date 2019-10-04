@@ -5,10 +5,12 @@ from time import sleep
 import xlwt
 from xlwt import Workbook
 from openpyxl import load_workbook
+import getpass
+
 # from seleniuminformation import ren_user, ren_passwd
 
 ren_user = input('Enter username: ')
-ren_passwd = input('Enter password: ')
+ren_passwd = getpass.getpass("Enter password: ")
 
 url = "https://hosted13.renlearn.com/272178/public/rpm/login/Login.aspx?srcID=t"
 
