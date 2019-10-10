@@ -2,10 +2,10 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 from time import sleep
-import xlwt
-from xlwt import Workbook
+import xlsxwriter
 from openpyxl import load_workbook
 import getpass
+
 
 # from seleniuminformation import ren_user, ren_passwd
 
@@ -48,7 +48,7 @@ name_list = []
 username_list = []
 pass_list = []
 
-wb = Workbook()
+wb = xlsxwriter.Workbook('STAR2.xlsx')
 
 def students(teacher_option, teacher_name):
     # choosing teacher options to view
@@ -59,7 +59,7 @@ def students(teacher_option, teacher_name):
     # switching to see student login information
     paswrds = chrome.find_element_by_id('ctl00_cp_Content_tabPasswords')
     paswrds.click()
-    sheet1 = wb.add_sheet(teacher_name)
+    sheet1 = wb.add_worksheet(teacher_name)
     sheet1.write(0, 0, 'Student Name')
     sheet1.write(0, 1, 'Username')
     sheet1.write(0, 2, 'Password')
@@ -119,9 +119,6 @@ def students(teacher_option, teacher_name):
     for j in pass_list:
         sheet1.write(x, 2, j)
         x += 1
-
-    wb.save('/Users/jesusmedina/Downloads/Marshall/AR/STAR2.xls')
-
 
 teacher_name = ''
 teacher = input('Enter the teachers name: ')
@@ -200,5 +197,6 @@ while teacher != 'q':
         students(teacher_option=teacher_option, teacher_name=teacher_name)
     teacher = input('Enter the teachers name: ')
 
+wb.close()
 
 print('Finished')
