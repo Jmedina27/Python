@@ -1,49 +1,31 @@
 from selenium import webdriver
-from time import sleep
-import xlwt
-from xlwt import Workbook
+from selenium.webdriver.chrome.options import Options
 
-#create chrome object that uses Chrome Browser 
-chrome = webdriver.Chrome("/Users/jesusmedina/Downloads/chromedriver")
+url = 'http://kenhan.org'
 
-#go to the link using the chrome browser
-chrome.get("https://www.sephora.com/beauty/new-makeup?icid2=meganav_new_justarrived_makeup_link")
+chrome_path = '/Users/jesusmedina/Downloads/chromedriver'
 
-#create two obv
-name = chrome.find_elements_by_class_name("css-ktoumz")
-price = chrome.find_elements_by_class_name("css-68u28a")
+options = Options()
+options.headless = True
 
-name_list = []
-price_list = []
+chrome = webdriver.Chrome(executable_path=chrome_path, options=options)
 
-for i in name:
-    name_list.append(i.text)
-for i in price:
-    price_list.append(i.text)
+chrome.get(url)
 
-mapped = [name_list, price_list]
+name = chrome.find_element_by_xpath('//*[@id="latestnews"]/li/table/tbody/tr/td[2]/div/p/a[1]').text
+email = chrome.find_element_by_xpath('//*[@id="latestnews"]/li/table/tbody/tr/td[2]/div/p/a[2]').text
+phone = chrome.find_element_by_xpath('//*[@id="latestnews"]/li/table/tbody/tr/td[2]/div/p/a[4]').text
+office = chrome.find_element_by_xpath('//*[@id="latestnews"]/li/table/tbody/tr/td[2]/div/p/a[3]').text
+office_hours = chrome.find_element_by_xpath('//*[@id="latestnews"]/li/table/tbody/tr/td[2]/div/p/a[5]').text
 
-for i in zip(*mapped):
-   print(*i)
+print(str(name) + "\n"
+        + email + "\n"
+        + phone + "\n"
+        + office + "\n"
+        + office_hours)
 
-wb = Workbook()
 
-sheet1 = wb.add_sheet("sephora")
-sheet1.write(0, 0, 'Product Name')
-sheet1.write(0, 1, 'Product Price')
-
-x = 1
-for i in name_list:
-    sheet1.write(x, 0, i)
-    x += 1
-
-x = 1
-for i in price_list:
-    sheet1.write(x, 1, i)
-    x += 1
-
-wb.save('sephora.xls')
-
-input("hit enter to quit the program")
+input('Enter any key to quit')
 chrome.close()
-print("Finished")
+print('finished')
+

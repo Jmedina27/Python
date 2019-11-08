@@ -7,6 +7,16 @@ import xlsxwriter
 from openpyxl import load_workbook
 import getpass
 
+
+
+class Renaissance:
+
+    def __init__(self, url, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
+
+
 #Prompt user to enter username and password, using get pass module to hide user's input for password
 ren_user = input('Enter username: ')
 ren_passwd = getpass.getpass("Enter password: ")

@@ -16,7 +16,7 @@ else:
 while ret:
     #gray = cv2.cvtColor(frame, cv2.COLOR_BAYER_BG2GRAY)
     cv2.imshow('preview', frame)
-    cv2.imwrite('cv2img.jpeg', )
+    cv2.imwrite('cv2img.jpeg',)
     key = cv2.waitKey(1)
 
     if key == 'q':

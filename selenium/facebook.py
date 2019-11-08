@@ -21,7 +21,7 @@ class Facebook:
 
         login = chrome.find_element_by_id('btnLogIn')
         login.click()
-        sleep(5)
+        sleep(5)z
 
 user = input('Enter the username: ')
 passwd = getpass.getpass("Enter password: ")

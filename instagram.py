@@ -12,4 +12,5 @@ caption = input('Enter a caption: ')
 with client(username, password) as cli:
     cli.upload(image, caption)
 
-print('Post have been uploaded')
+client()._login()
+print('Post has been uploaded')
