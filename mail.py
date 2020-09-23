@@ -6,8 +6,6 @@ from email.mime.text import MIMEText
 import imapclient
 import pprint
 
-
-
 def send_mail(email, passwd):
 
     gmail = smtplib.SMTP('smtp.gmail.com', 587)

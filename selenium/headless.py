@@ -2,8 +2,8 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 from time import sleep
-import xlwt
-from xlwt import Workbook
+#mport xlwt
+#from xlwt import Workbook
 
 options = Options()
 chrome_path = "/Users/jesusmedina/Downloads/chromedriver"
@@ -53,4 +53,5 @@ wb.save('sephora.xls')
 
 input("Enter anything to quit")
 chrome.close()
+chrome.quit()
 print("finished")

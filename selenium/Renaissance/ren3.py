@@ -1,5 +1,5 @@
 from selenium import webdriver
-#from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 from time import sleep
 import time
@@ -8,8 +8,8 @@ from openpyxl import load_workbook
 import getpass
 
 #Prompt user to enter username and password, using get pass module to hide user's input for password
-ren_user = input('Enter username: ')
-ren_passwd = getpass.getpass("Enter password: ")
+ren_user = 'Jmedina2'#input('Enter username: ')
+ren_passwd = 'Donthackme27!' #getpass.getpass("Enter password: ")
 
 #using to time module to get the total time it takes for the program to run
 startTime = time.time()
@@ -20,21 +20,24 @@ name = getpass.getuser()
 #variable for holding the website url
 url = "https://hosted13.renlearn.com/272178/public/rpm/login/Login.aspx?srcID=t"
 
-
 # option for headless selenium chrome driver
 options = Options()
 chrome_path = '/Users/%s/Downloads/chromedriver' % str(name)
 options.headless = True
-chrome = webdriver.Chrome(executable_path=chrome_path, options=options)
+chrome = webdriver.Chrome(executable_path=chrome_path) #, options=options)
 
 # launching chrome with the desired url in the background
 chrome.get(url)
 
+newSite = chrome.find_element_by_id('btnGoNow')
+newSite.click()
+sleep(1)
+
 # using selenium to find the username and password input element, and sending in the username and password to the input
-username = chrome.find_element_by_id('tbUserName')
+username = chrome.find_element_by_id('Username')
 username.send_keys(ren_user)
 
-password = chrome.find_element_by_id('tbPassword')
+password = chrome.find_element_by_id('Password')
 password.send_keys(ren_passwd)
 
 #logging into website
@@ -43,11 +46,14 @@ login.click()
 sleep(1)
 
 #retrives the user of the account that was logged in
-account_name = chrome.find_element_by_id('ctl00_mHeader_aUsername').text
+account_name = chrome.find_element_by_xpath('//*[@id="NG2_UPGRADE_0_app_c0"]/div/rl-header-ng2/div/div[3]/span[4]/rl-navitem/a/span[2]').text
 print('Logged in as ' + account_name)
 
+toggle = chrome.find_element_by_xpath('//*[@id="NG2_UPGRADE_0_app_c0"]/div/rl-header-ng2/div/div[3]/span[4]/rl-menu')
+toggle.click()
+
 # switching to student users page
-usrs = chrome.find_element_by_id('app-users')
+usrs = chrome.find_element_by_xpath('//*[@id="NG2_UPGRADE_0_app_c0"]/div/rl-header-ng2/div/div[3]/span[4]/rl-menu/div[1]/div/rl-menuitem[2]')
 usrs.click()
 #sleep(1)
 

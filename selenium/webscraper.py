@@ -27,5 +27,6 @@ print(str(name) + "\n"
 
 input('Enter any key to quit')
 chrome.close()
+chrome.quit()
 print('finished')
 

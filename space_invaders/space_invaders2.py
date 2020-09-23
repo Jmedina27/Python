@@ -65,7 +65,7 @@ player.setheading(90)
 playerspeed = 15
 
 # chode number of enemies
-number_of_enemies = 4
+number_of_enemies = 7
 
 
 # create an empty list of enemies
@@ -88,7 +88,7 @@ for enemy in enemies:
         x += 50
     enemy.setposition(x, y)
     enemy.shape("invader.gif")
-    enemy.speed('fastest')
+    enemy.speed(0)
     x += 50
     
 
@@ -189,7 +189,7 @@ while True:
             bulletstate = "ready"
             bullet.setposition(0, -400)
             # hide the enemy
-            enemy.clear()
+            #enemy.clear()
             enemy.ht()
             #update the score by ten points
             score += 10
